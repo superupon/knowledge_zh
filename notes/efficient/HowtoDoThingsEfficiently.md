@@ -1,22 +1,19 @@
-# How to Work Efficiently or Professionally?
+# 如何高效的做事情
 
-> [!NOTE]
-> Note
+## 1. 让脚本来自动化的做事情
 
-## 1. Automate Tasks with Scripts
+只要一个任务可以由机器完成，就让机器完成。
 
-Whenever a task can be accomplished by a machine, let the machine handle it.
+## 2. 熟悉快捷键
 
-## 2. Familiar yourself with Keyboard Shortcuts
+举个例子，当你使用github web编辑器写markdown文档时，三个快捷键可以提高你的写字效率:`Ctrl + B`, `Ctrl + I` and `Ctrl + E`.
 
-For instance, when you using github web editor to write markdown documents, three hotkeys can enhance your editing efficiency: Ctrl + B, Ctrl + I and Ctrl + E.
+并且，当你是一个`vim`的用户时，记住大量的组合键是非常重要的。😄
 
-And if your're a Vim user, it's beneficial to memorize a variety of key combinations. 😆
+## 3. 维护一个闭环的问题系统
 
-## 3. Maintain a Closed-Loop System for Issues
+如果你发现了一个bug, 那么，当这个bug的主人吧，直到它被最终解决。
 
-If you discover a bug, take ownership of it and see it through to resolution.
-
-Once a fix is announced, always allocate time for verification to ensure the issue has been fully addressed.
+一旦这个问题被解决了，一定要分配时间来验证这个问题是否被真正解决掉了。
 
 ## Backlink

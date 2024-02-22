@@ -1,3 +1,3 @@
 # Computer Architecture 入口
 
-[Brief Introduction to Intel Developer Manual :gift:](BriefIntroductionToIntelDevelopersManual.md)
+* [简要介绍Intel开发手册:gift:](BriefIntroductionToIntelDevelopersManual.md)
