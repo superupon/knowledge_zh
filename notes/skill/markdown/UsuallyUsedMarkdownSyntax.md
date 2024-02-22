@@ -49,4 +49,5 @@ $$\left( \sum_{k=1}^n a_k b_k \right)^2 \leq \left( \sum_{k=1}^n a_k^2 \right) \
 
 ### Further readings 进一步的阅读材料
 
-https://docs.mathjax.org/en/latest/
+* https://docs.mathjax.org/en/latest/
+* https://en.wikibooks.org/wiki/LaTeX/Mathematics
