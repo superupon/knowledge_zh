@@ -1,9 +1,9 @@
-# Tools used for Analysis Performance
-😄
+# 用于性能分析的工具
 
-## For runtime
-1. **collect & analyzer** (oracle, but need -jemalloc=0)
-   - It may need -Xutil=1 to disable mangle to get not mangled generated code 
+## 对于runtime
+
+1. **collect & analyzer** (oracle的工具，但是需要-jemalloc=0)
+   - It may need -Xutil=1 to disable mangle to get not mangled generated code
 2. **-xcprofile** (need `XSIM_DIAGNOSE` set)
 3. **-xprofile**
    - It's a tool for analysis time consumption for the whole design in runtime.
@@ -18,11 +18,11 @@ It will be deployed on most of linux system
 > **collect** and **xprofile** can not be used at the same time. Please pay attention
 
 ## For compile time
+
 1. **collect** (we can still use it with '-collect' in compile command line)
 2. **perf** 
    1. [Perf Usage](HowToProfileProgramWithPerf.md)
-   
+  
 # Backlink
 [Performance Analysis Record](../../Record/PerformanceAnalysis.md)
-
 [Performance Entry](PerformanceEntry.md)

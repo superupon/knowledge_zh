@@ -1,7 +1,7 @@
-# Entry for Compiler Topics
+# Compiler主题的入口
 
 * [Reaching-Definition Analysis](ReachingDefinitionAnalysis.md)
 
-## Compiler Related Resources
+## Compiler相关资源
 
-* [Compiler Books](CompilerRelatedBooks.md)
+* [编译器相关书籍](CompilerRelatedBooks.md)
