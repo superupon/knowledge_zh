@@ -1,5 +1,4 @@
-Google:
-
+> Google:
 Given a list of numbers and a number k, return whether any two numbers from the list add up to k
 For example, given [10, 15, 3, 7] and k of 17, return true since 10 + 7 is 17.
 Bonus: Can you do this in one pass?
@@ -8,6 +7,7 @@ Classical Problem from google, Find two number, and their sum is `K`
 
 
 ## Solution 1 Brute Force
+
 ```cpp
 #include <iostream>
 #include <vector>
@@ -28,7 +28,6 @@ bool TwoSum(std::vector<int> data, int k)
     return iterFind != data.end();   
 }
 ```
-
 
 Analysis: This method compares each element with the difference of k and the element's value across all subsequent elements in the list. It's a slightly optimized brute force method but still has a high time complexity.
 

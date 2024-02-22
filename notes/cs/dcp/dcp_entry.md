@@ -5,6 +5,7 @@
 ### DCP
 
 * [Daily Coding Problem #1: Sum of Two](DCP1SumOf2.md)
+* [Daily Coding Problem #2](DCP2.md)
 
 ### 普通的面试问题
 
