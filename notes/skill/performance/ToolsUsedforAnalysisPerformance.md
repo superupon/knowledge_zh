@@ -9,7 +9,7 @@
    - 可能需要`-Xutil=1` 来把命名混淆关闭
 2. **-xcprofile** (需要设置`XSIM_DIAGNOSE`)
 3. **-xprofile**
-   - It's a tool for analysis time consumption for the whole design in runtime.
+   - 这是一个用于分析整个design在运行时开销的工具
       - You make make use of **Detailed Time Construct View** and **Time Module View** to get performance bottle neck.
       - For **Detailed Time Construct View**, it can show you what kind of construct takes most of the time and to improve its performance.
       - For **Time Module View**, it can give you basic context of the performance issue. Performance issue sometimes is complicated. It need more related data and different dimension of data to get better understanding.

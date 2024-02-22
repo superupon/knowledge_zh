@@ -1,7 +1,8 @@
 # CShell
 
-## Notes
-* [Write Basic CShell Scripts](WriteBasicCShellScipts.md)
-* [Call Another CShell Scripts](HowToCallAnotherShellScript.md)
-* [Basic Command line Hotkeys](BasicCommands.md)
-* [How to Know Shell is csh or tcsh?](HowToKnowCshOrTcsh.md)
+## 笔记
+
+* [编写基本的cshell脚本](WriteBasicCShellScipts.md)
+* [调用另外一个cshell脚本](HowToCallAnotherShellScript.md)
+* [基本的命令行热键](BasicCommands.md)
+* [如何知道你在用的是csh还是tcsh?](HowToKnowCshOrTcsh.md)

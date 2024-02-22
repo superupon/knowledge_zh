@@ -1,27 +1,28 @@
-# Usually used Markdown syntax
+# 经常使用的Markdown语法
 
-Just skip basic syntax, but quoting some instresting syntax for github markdown format.
+对于简单的语法，我们就忽略了，只胆引用一些相对没那边频繁，但还是非常有用的语法
 
-Please use this doc for more details.
+可以参考如下的文档以获取更多的信息
 
 [Basic writing and formatting syntax from github](https://docs.github.com/en/get-started/writing-on-github/getting-started-with-writing-and-formatting-on-github/basic-writing-and-formatting-syntax)
 
-## Quoting Text
-> Test that is a quote
+## 引用文本
 
-
+> 测试，这是一段引用
 
 ## Links
 
 `[Link Text](Link URL#Section)`
 
 ## Footnotes
+
 Simple footnote [^1]
 [^1]: Just a simple note
 
-*This can not be previewed by vscode editor*
+* *这个可能没法被VScode的Preview给看到*
 
 ## Alerts
+
 > [!NOTE]
 > Useful information that users should know
 
@@ -37,7 +38,8 @@ Simple footnote [^1]
 > [!CAUTION]
 > Advises about risks or negative outcomes of certain actions.
 
-## Maths
+## Maths 数学公式
+
 * Example 1: This sentence uses `$` delimiters to show math inline:  $\sqrt{3x-1}+(1+x)^2$
 
 * Example 2: **The Cauchy-Schwarz Inequality**
@@ -45,5 +47,6 @@ Simple footnote [^1]
 
 $$\left( \sum_{k=1}^n a_k b_k \right)^2 \leq \left( \sum_{k=1}^n a_k^2 \right) \left( \sum_{k=1}^n b_k^2 \right)$$
 
-### Further readings
+### Further readings 进一步的阅读材料
+
 https://docs.mathjax.org/en/latest/

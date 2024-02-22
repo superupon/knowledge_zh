@@ -1,15 +1,16 @@
 # Linux 命令
 
-## date
+## 1. date
 
 ### 如何按照你的需求输出日期信息
 
-Usage: date [option] [+format]
-format controls output
-%% -> %
-%a -> weekday name (eg, Sun)
-%m -> month (eg, 01..12)
-%d -> day of month (eg, 01)
+Usage: `date [option] [+format]`
+
+* format controls output
+* %% -> %
+* %a -> weekday name (eg, Sun)
+* %m -> month (eg, 01..12)
+* %d -> day of month (eg, 01)
 
 #### 例子 1
 
@@ -18,11 +19,11 @@ date "+%m%d"
 0908
 ```
 
-请使用 --help 来查看更多的信息。
+请使用 `--help` 来查看更多的信息。
 
-## diff
+## 2. diff
 
-diff command can diff two different directories.
+`diff`可以用来diff两个不同的目录
 
 ### 例子 2
 
@@ -34,10 +35,10 @@ diff -bur folder1/ folder2/
 * u -> unified context
 * r -> 递归
 
-## xterm
+## 3. xterm
 
-We can pass in a lot of parameters to it to get better default window.
-For instance,
+
+我们可以传递一些参数给xterm, 让它可以更好的显示窗口，举个例子：
 
 ```bash
 xterm -sl 20000 -fg lightgreen -bg block -cr red -fn 9x15 -maxmized
@@ -45,7 +46,7 @@ xterm -sl 20000 -fg lightgreen -bg block -cr red -fn 9x15 -maxmized
 
 这对你的眼睛非常友好！😄
 
-## repeat
+## 4. repeat
 
 具体的格式如下：
 

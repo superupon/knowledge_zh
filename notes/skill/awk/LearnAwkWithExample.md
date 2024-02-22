@@ -1,6 +1,6 @@
-# Learn awk with Example
+# 通过例子来学习awk
 
-## Types of awk
+## awk的不同实现
 
 * AWK − Original AWK from AT & T Laboratory.
 * NAWK − Newer and improved version of AWK from AT & T Laboratory.

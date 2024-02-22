@@ -1,6 +1,6 @@
 # 如何利用perf来采集你的应用信息
 
-## Why no symbol names, only address?
+## 为什么没有符号名字，只有一堆地址呢
 
 Sometimes, you may find that perf does not show any symbol name, only address. Then please check your perf, which perf your are using?
 
