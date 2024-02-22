@@ -66,5 +66,5 @@
 
 ### 10.2 SCC
 
-* A Space-Efficient Algorithm for Finding Strongly Connected components [david]
+* [A Space-Efficient Algorithm for Finding Strongly Connected components [david]](/papers/A%20Space-Efficient%20Algorithm%20for%20Finding%20Strongly%20Connected%20components%20[david].pdf)
 * Finding Strong Components Using Depth-First Search [robert e. tarjan]
