@@ -1,11 +1,13 @@
-# How to better make use of Vim for programming?
+# 如何更好的利用Vim来进行编程呢?
 
-## Replace within Visual Mode
-`\%V` should do the trick.
+## 在Visual Mode 选中的区域中进行替换
+
+`\%V` 可以做这样的事情.
 For example: `:%s/\%Vs/k/g`
 
-## Sort line and Unique
-```
+## Sort line 并且去除重复
+
+```bash
 :sort
 :sort u
 ```
