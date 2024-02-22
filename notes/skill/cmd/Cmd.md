@@ -1,7 +1,9 @@
-# CMD
+# Linux 命令
 
 ## date
-### How to output date as you want
+
+### 如何按照你的需求输出日期信息
+
 Usage: date [option] [+format]
 format controls output
 %% -> %
@@ -9,30 +11,44 @@ format controls output
 %m -> month (eg, 01..12)
 %d -> day of month (eg, 01)
 
-#### Example
-```
+#### 例子 1
+
+```bash
 date "+%m%d"
 0908
 ```
-Please use --help to see more information
+
+请使用 --help 来查看更多的信息。
 
 ## diff
+
 diff command can diff two different directories.
 
-### Example
-diff -bur folder1/ folder2/
-* b -> ignore whitespace
-* u -> unified context
-* r -> recursive
+### 例子 2
 
-## xterm 
+```bash
+diff -bur folder1/ folder2/
+```
+
+* b -> 忽略whitespace
+* u -> unified context
+* r -> 递归
+
+## xterm
+
 We can pass in a lot of parameters to it to get better default window.
 For instance,
+
 ```bash
 xterm -sl 20000 -fg lightgreen -bg block -cr red -fn 9x15 -maxmized
 ```
-It's very good for your eyes 😄
+
+这对你的眼睛非常友好！😄
 
 ## repeat
-repeat cnt command
 
+具体的格式如下：
+
+```bash
+repeat cnt command
+```
