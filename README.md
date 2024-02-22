@@ -1,15 +1,9 @@
-# Knowledge Base
+# 知识库
 
-Hi, this is my knowledge base for all years working and learning
+这是我总结多年工作的知识库，以及相关的学习经验。
 
-You are free to search it and find anything you are interested. If you want to discuss or make questions. Please feel free to contact me. 
+大家可以自由的进行搜索其中的内容和主题，如果你想要一起讨论或者关于某些文章有问题。欢迎发邮件讨论。
 
-[Main Entry 🧠](main.md)
+[主入口🧠](main.md)
 
-
-Personal Email: floatp@gmail.com
-
-
-If you like it, maybe you can buy me a cup of coffee. 
-
-[Buy me a cup of coffee ☕](https://www.buymeacoffee.com/floatpg)
+个人邮箱: superupon@126.com
