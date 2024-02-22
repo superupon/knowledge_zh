@@ -1,6 +1,6 @@
-# Entry for Markdown Tips
+# Markdown技巧的入口
 
-List for Docs
+## 文章列表
 
-* [Emojis List](emojis.md)
-* [Markdown Github format](./UsuallyUsedMarkdownSyntax.md)
+* [Emojis 列表](emojis.md)
+* [Markdown Github格式](./UsuallyUsedMarkdownSyntax.md)
