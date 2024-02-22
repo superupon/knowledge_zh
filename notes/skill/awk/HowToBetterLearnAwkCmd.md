@@ -2,12 +2,11 @@
 
 `awk`是一个强大的文本处理工具，它在多数的Unix系统上是默认安装的。学习`awk`可以极大的提高你操纵文本文件的能力。这里有一些步骤可以用来更好的学习`awk`
 
-1. **Understand the Basics**:
-   - `awk` is a programming language designed for text processing. It operates on a line-by-line basis and applies a series of rules (or one-liners) to each line. 
-   - The basic syntax is: `awk 'pattern { action }' file`.
-   *(It's a programming language ❗ I originally thought it was only a command. )* 😲
+1. **理解基础**:
+   - `awk` 是一个用于文本处理的编程语言。它每次会对每一行适配一系列的规则.
+   - 基本语法: `awk 'pattern { action }' file`.
 
-2. **Start with Simple Examples**:
+2. **从小例子着手**:
    - Print all lines: `awk '{print}' file`
    - Print the first field of each line: `awk '{print $1}' file`
    - Print lines that contain "pattern": `awk '/pattern/ {print}' file`

@@ -1,4 +1,5 @@
-# C++ Language Entry ❤️
+# C++ 入口❤️
 
-## Notes
-[Feeling About C++ Language](FeelingAboutCpp.md)
+## 笔记集合
+
+* [对C++的感受](FeelingAboutCpp.md)
