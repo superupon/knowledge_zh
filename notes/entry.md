@@ -1,17 +1,17 @@
-# All Notes Entry Point here
+# 所有笔记的入口点集合
 
-## Entries
+## 入口点集合
 
-* [Efficient](efficient/efficient_entry.md)
-* [Record](record/record_entry.md)
-* [Skill](skill/skill_entry.md)
-* [Computer Science](cs/cs_entry.md)
+* [效率](efficient/efficient_entry.md)
+* [记录](record/record_entry.md)
+* [技能](skill/skill_entry.md)
+* [计算机科学](cs/cs_entry.md)
 
 ```mermaid
 mindmap
 root((Entry))
-  Skill
-  Record
-  Efficient
-  ComputerScience
+  技能
+  记录
+  效率
+  计算机科学
 ```
