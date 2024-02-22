@@ -1,3 +1,3 @@
 # AI
 
-* [How to make used of ChatGPT](HowToMakeUseOfChatGpt.md)
+* [如何更好的利用ChatGPT](HowToMakeUseOfChatGpt.md)

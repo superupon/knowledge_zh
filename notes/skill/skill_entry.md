@@ -1,4 +1,4 @@
-# Skills
+# 技能集合
 
 * [AI](ai/ai_entry.md)
 * [CShell](cshell/cshell_entry.md)
