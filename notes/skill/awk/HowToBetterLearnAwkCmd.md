@@ -1,4 +1,6 @@
-`awk` is a powerful text processing tool that is standard on most Unix systems. Learning `awk` can greatly enhance your ability to manipulate and process text files. Here's a step-by-step guide to better learn `awk`:
+# 如何更好的学习awk命令
+
+`awk`是一个强大的文本处理工具，它在多数的Unix系统上是默认安装的。学习`awk`可以极大的提高你操纵文本文件的能力。这里有一些步骤可以用来更好的学习`awk`
 
 1. **Understand the Basics**:
    - `awk` is a programming language designed for text processing. It operates on a line-by-line basis and applies a series of rules (or one-liners) to each line. 
