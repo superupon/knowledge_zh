@@ -1,0 +1,43 @@
+`awk` is a powerful text processing tool that is standard on most Unix systems. Learning `awk` can greatly enhance your ability to manipulate and process text files. Here's a step-by-step guide to better learn `awk`:
+
+1. **Understand the Basics**:
+   - `awk` is a programming language designed for text processing. It operates on a line-by-line basis and applies a series of rules (or one-liners) to each line. 
+   - The basic syntax is: `awk 'pattern { action }' file`.
+   *(It's a programming language ❗ I originally thought it was only a command. )* 😲
+
+2. **Start with Simple Examples**:
+   - Print all lines: `awk '{print}' file`
+   - Print the first field of each line: `awk '{print $1}' file`
+   - Print lines that contain "pattern": `awk '/pattern/ {print}' file`
+
+3. **Dive into Tutorials and Books**:
+   - There are numerous online tutorials that offer beginner to advanced guidance on `awk`.
+   - Consider classic books like "The AWK Programming Language" by Alfred Aho, Brian Kernighan, and Peter Weinberger.
+
+4. **Experiment on Your Own**:
+   - Try manipulating different text files on your system.
+   - Challenge yourself with tasks, e.g., calculate the sum of numbers in a column, extract specific columns, or transform a file's format.
+
+5. **Learn About Built-in Variables**:
+   - `awk` has several built-in variables like `NF` (number of fields), `NR` (record number), `FS` (field separator), and more. Understand how to use them to your advantage.
+
+6. **Explore Conditional Statements and Loops**:
+   - `awk` supports `if`, `else`, `while`, and `for` constructs, allowing for more complex text processing.
+
+7. **Write Multi-line Scripts**:
+   - Instead of one-liners, you can write more extended `awk` scripts with functions and multiple actions.
+
+8. **Combine with Other Unix Tools**:
+   - Chain `awk` with tools like `sed`, `grep`, `sort`, and `cut` to build powerful text processing pipelines.
+
+9. **Practice Regularly**:
+   - Like any language or tool, the more you use `awk`, the more proficient you'll become.
+   - Try solving challenges on platforms like [Hackerrank](https://www.hackerrank.com/) or [LeetCode](https://leetcode.com/), which offer text processing problems suitable for `awk`.
+
+10. **Join Forums and Communities**:
+   - Platforms like [Stack Overflow](https://stackoverflow.com/) have many `awk` enthusiasts who share solutions and answer questions. Engage with these communities to learn and share knowledge.
+
+11. **Consistency is Key**:
+   - Dedicate a little time each day or week to practice and learn new `awk` commands or techniques. Regular practice can significantly enhance your learning curve.
+
+Remember, `awk` is not just a command; it's a versatile programming language. The deeper you dive into its capabilities, the more powerful it becomes as a tool in your toolkit.
