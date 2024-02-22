@@ -1,5 +1,5 @@
 # 对于C++的感受
 
-I used this language since my college. This language is so complicated and huge so that I can barely say I'm familiar with this language.
+自从大学的时候，就用这玩意儿干过很多事情了。这东西真是极为复杂。哪怕到现在，我也不敢说自己精通了C++.
 
-After all those years of working and learning, I can only familiar with subset of it, which is a little bit frustrated. 
+这么多年的工作，我只学会了部分的C++。想想真是好气啊。  :angry:
