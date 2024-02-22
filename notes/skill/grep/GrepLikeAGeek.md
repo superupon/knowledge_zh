@@ -2,7 +2,7 @@
 
 ## 什么是grep?
 
-grep is a text tool, which can search a directory. It's frequently used in Linux/Unix System. How to better understand it and make good use of it, is a important topic to improve our efficiency.
+grep是一个文本工具，它可以搜索一个目录。它通常会用到Linux/Unix系统中。更好的利用它，是非常重要的。
 
 ## grep 技巧
 
@@ -12,4 +12,4 @@ grep is a text tool, which can search a directory. It's frequently used in Linux
 
 ### grep 只输出grep到的文本串
 
-`-o`: it will only output grepped string
+`-o`: it will only output grepped string.  
