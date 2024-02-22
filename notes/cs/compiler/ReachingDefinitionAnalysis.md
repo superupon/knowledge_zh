@@ -1,7 +1,8 @@
 # Reaching-Definition Analysis
 
-## What is Reaching-Definition Analysis?
-Reaching-definition analysis is a concept in compiler design, used in the optimization and analysis phase. It's a type of data-flow analysis that determines which definitions of variables might reach a particular point in the code. Let me explain it in more detail:
+## 什么是Reaching-Definition Analysis?
+
+Reaching-definition分析是在编译器设计中的一个概念，它通常被用于优化和分析阶段。它是一种数据流分析，它确定了变量的定义可能在代码中抵达特定的程序点。
 
 1. Definition of a Variable: In the context of reaching-definitions, a "definition" **refers to an assignment or any operation that changes the value of a variable**. For example, in the line x = 5, the variable x is being defined.
 
