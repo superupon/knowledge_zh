@@ -1,5 +1,5 @@
-# Efficient
+# 效率
 
-## Notes
+## 笔记
 
-* [How to do things efficiently](HowtoDoThingsEfficiently.md)
+* [如何高效的做事情](HowtoDoThingsEfficiently.md)
