@@ -6,3 +6,4 @@
 * [计算机体系结构](ca/ca_entry.md)
 * [C++](cpp/cpp_entry.md)
 * [Daily Coding Problems](dcp/dcp_entry.md)
+* [Python](python/python_entry.md)
