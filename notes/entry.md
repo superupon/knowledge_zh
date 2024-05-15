@@ -7,6 +7,7 @@
 * [技能](skill/skill_entry.md)
 * [计算机科学](cs/cs_entry.md)
 * [英语](eng/eng_entry.md)
+* [EDA](eda/eda_entry.md)
 
 ```mermaid
 mindmap
@@ -16,4 +17,5 @@ root((Entry))
   效率
   计算机科学
   英语
+  EDA
 ```
