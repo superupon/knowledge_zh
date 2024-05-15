@@ -6,6 +6,7 @@
 * [记录](record/record_entry.md)
 * [技能](skill/skill_entry.md)
 * [计算机科学](cs/cs_entry.md)
+* [英语](eng/eng_entry.md)
 
 ```mermaid
 mindmap
@@ -14,4 +15,5 @@ root((Entry))
   记录
   效率
   计算机科学
+  英语
 ```
