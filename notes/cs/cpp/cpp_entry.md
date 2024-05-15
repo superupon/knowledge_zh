@@ -8,6 +8,7 @@
 
 ### 2.基本原理
 
+* [C++虚函数实现原理](CppVirtualFunctionImplementation.md)
 
 ### 3.经验
 
