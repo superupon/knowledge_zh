@@ -11,6 +11,7 @@
 * [Performance](performance/performance_entry.md)
 * [markdown](markdown/md_entry.md)
 * [git](git/git_entry.md)
+* [gdb](gdb/gdb_entry.md)
 
 ```mermaid
 mindmap
@@ -26,4 +27,5 @@ root((Skills))
   Performance
   markdown
   git
+  gdb
 ```
