@@ -10,6 +10,10 @@
 
 * [C++虚函数实现原理](CppVirtualFunctionImplementation.md)
 
-### 3.经验
+### 3.进阶用法
+
+* [C++ Function Trait](CppFunctionTraits.md)
+
+### 4.经验
 
 * [对C++的感受](FeelingAboutCpp.md)
