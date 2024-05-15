@@ -53,3 +53,7 @@ xterm -sl 20000 -fg lightgreen -bg block -cr red -fn 9x15 -maxmized
 ```bash
 repeat cnt command
 ```
+
+## 5. realpath
+
+print the full path name of a file in Linux by using the realpath command
