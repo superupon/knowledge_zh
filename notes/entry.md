@@ -10,6 +10,7 @@
 * [EDA](eda/eda_entry.md)
 * [半导体](ic/ic_entry.md)
 * [学习理论](learn/learn_entry.md)
+* [软件工程](se/se_entry.md)
 
 ```mermaid
 mindmap
