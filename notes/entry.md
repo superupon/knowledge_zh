@@ -8,6 +8,7 @@
 * [计算机科学](cs/cs_entry.md)
 * [英语](eng/eng_entry.md)
 * [EDA](eda/eda_entry.md)
+* [半导体](ic/ic_entry.md)
 
 ```mermaid
 mindmap
@@ -18,4 +19,5 @@ root((Entry))
   计算机科学
   英语
   EDA
+  半导体
 ```
