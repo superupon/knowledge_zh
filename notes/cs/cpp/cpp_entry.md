@@ -6,6 +6,9 @@
 
 * [C++的placement new用法](CallConstructorOnMemory.md)
 
-### 2.经验
+### 2.基本原理
+
+
+### 3.经验
 
 * [对C++的感受](FeelingAboutCpp.md)
