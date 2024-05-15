@@ -9,6 +9,7 @@
 * [英语](eng/eng_entry.md)
 * [EDA](eda/eda_entry.md)
 * [半导体](ic/ic_entry.md)
+* [学习理论](learn/learn_entry.md)
 
 ```mermaid
 mindmap
@@ -20,4 +21,5 @@ root((Entry))
   英语
   EDA
   半导体
+  学习理论
 ```
