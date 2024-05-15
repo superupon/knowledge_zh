@@ -12,6 +12,7 @@
 * [markdown](markdown/md_entry.md)
 * [git](git/git_entry.md)
 * [gdb](gdb/gdb_entry.md)
+* [cmake](cmake/cmake_entry.md)
 
 ```mermaid
 mindmap
@@ -28,4 +29,5 @@ root((Skills))
   markdown
   git
   gdb
+  cmake
 ```
