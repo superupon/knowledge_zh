@@ -57,3 +57,11 @@ repeat cnt command
 ## 5. realpath
 
 print the full path name of a file in Linux by using the realpath command
+
+## 6. How to append to a file
+
+```bash
+echo "data_to_append" >> file.txt
+```
+
+如果没有该文件，则会创建这个文件
