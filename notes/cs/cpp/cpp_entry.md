@@ -18,6 +18,7 @@
 
 * [C++11新引入的STL算法](Cpp11NewSTLAlgorithms.md)
 * [std::all_of示例](CppStdAllOfAlogrithm.md)
+* [std::move的一些讨论](CppStdMoveIntroduction.md)
 
 ### 4.经验
 
