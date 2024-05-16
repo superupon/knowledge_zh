@@ -11,3 +11,13 @@ br = branch --format='%(HEAD) %(color:yellow)%(refname:short)%(color:reset) - %(
 cp = cherry-pick
 hist = log --graph --pretty=format:'%Cred%h%Creset - %C(yellow)%d%Creset %s %Cgreen(%ci)%Creset %Cblue[%an]' --abbrev-commit --date=relative
 ```
+
+## 如何传递参数到git alias中
+
+```bash
+git config --global alias.cmisc '!sh -c "git commit -m \"[misc] $1\""'
+```
+
+```bash
+git cmisc "Your commit message here"
+```
