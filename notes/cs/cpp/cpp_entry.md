@@ -16,8 +16,14 @@
 
 ### 4.Modern C++
 
+#### 4.1 STL
+
 * [C++11新引入的STL算法](Cpp11NewSTLAlgorithms.md)
 * [std::all_of示例](CppStdAllOfAlogrithm.md)
+* [std::thread的相关知识](CppStdThreadIntroduction.md)
+
+#### 4.2 New feature
+
 * [std::move的一些讨论](CppStdMoveIntroduction.md)
 
 ### 5.经验
