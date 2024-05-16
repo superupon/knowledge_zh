@@ -17,6 +17,7 @@
 ### 4.Modern C++
 
 * [C++11新引入的STL算法](Cpp11NewSTLAlgorithms.md)
+* [std::all_of示例](CppStdAllOfAlogrithm.md)
 
 ### 4.经验
 
