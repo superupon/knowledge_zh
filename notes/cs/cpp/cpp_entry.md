@@ -20,6 +20,7 @@
 * [std::all_of示例](CppStdAllOfAlogrithm.md)
 * [std::move的一些讨论](CppStdMoveIntroduction.md)
 
-### 4.经验
+### 5.经验
 
 * [对C++的感受](FeelingAboutCpp.md)
+* [C++ 基本面试题](CppInterviewQuestions.md)
