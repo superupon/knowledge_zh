@@ -1,7 +1,10 @@
 {
     "cSpell.words": [
+        "demangling",
         "endmodule",
+        "lldb",
         "mindmap",
+        "objdump",
         "readelf",
         "realpath",
         "verilog"
