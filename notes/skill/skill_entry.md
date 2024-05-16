@@ -13,6 +13,7 @@
 * [git](git/git_entry.md)
 * [gdb](gdb/gdb_entry.md)
 * [cmake](cmake/cmake_entry.md)
+* [bash](bash/bash_entry.md)
 
 ```mermaid
 mindmap
@@ -30,4 +31,5 @@ root((Skills))
   git
   gdb
   cmake
+  bash
 ```
