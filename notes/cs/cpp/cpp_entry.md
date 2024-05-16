@@ -14,6 +14,10 @@
 
 * [C++ Function Trait](CppFunctionTraits.md)
 
+### 4.Modern C++
+
+* [C++11新引入的STL算法](Cpp11NewSTLAlgorithms.md)
+
 ### 4.经验
 
 * [对C++的感受](FeelingAboutCpp.md)
