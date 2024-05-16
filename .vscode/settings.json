@@ -1,7 +1,10 @@
 {
     "cSpell.words": [
+        "cout",
         "demangling",
+        "endl",
         "endmodule",
+        "iostream",
         "lldb",
         "mindmap",
         "objdump",
