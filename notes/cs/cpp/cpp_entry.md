@@ -5,6 +5,7 @@
 ### 1.基本语法
 
 * [C++的placement new用法](CallConstructorOnMemory.md)
+* [什么是Storage Class](WhatIsStorageClass.md)
 
 ### 2.基本原理
 
