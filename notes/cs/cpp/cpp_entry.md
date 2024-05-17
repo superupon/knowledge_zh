@@ -28,6 +28,7 @@
 * [什么是std::array](CppStdArrayIntroduction.md)
 * [什么是std::forward_list](CppStdForwardList.md)
 * [std::list的一些细节](CppStdList.md)
+* [std::splice使用](HowToUseStdSplice.md)
 
 #### 4.2 New feature
 
