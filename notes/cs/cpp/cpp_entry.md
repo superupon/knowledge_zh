@@ -24,6 +24,7 @@
 * [std::thread的相关知识](CppStdThreadIntroduction.md)
 * [std::unique_ptr介绍](CppStdUniqueIntroduction.md)
 * [std::shared_ptr介绍](CppStdSharedPtrIntroduction.md)
+* [什么是std::array](CppStdArrayIntroduction.md)
 
 #### 4.2 New feature
 
