@@ -27,6 +27,7 @@
 
 #### 4.2 New feature
 
+* [C++11新增的主要feature](Cpp11InstroducedFeature.md)
 * [std::move的一些讨论](CppStdMoveIntroduction.md)
 
 ### 5.经验
