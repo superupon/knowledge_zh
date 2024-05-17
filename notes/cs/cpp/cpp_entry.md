@@ -33,6 +33,7 @@
 * [C++11新增的主要feature](Cpp11InstroducedFeature.md)
 * [std::move的一些讨论](CppStdMoveIntroduction.md)
 * [为什么强枚举类型更安全](WhyStrongTypeEnumMoreSafe.md)
+* [为什么final关键字可以提升性能](WhyFinalImprovePerformance.md)
 
 ### 5.经验
 
