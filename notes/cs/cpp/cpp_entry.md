@@ -25,6 +25,8 @@
 * [std::unique_ptr介绍](CppStdUniqueIntroduction.md)
 * [std::shared_ptr介绍](CppStdSharedPtrIntroduction.md)
 * [什么是std::array](CppStdArrayIntroduction.md)
+* [什么是std::forward_list](CppStdForwardList.md)
+* [std::list的一些细节](CppStdList.md)
 
 #### 4.2 New feature
 
