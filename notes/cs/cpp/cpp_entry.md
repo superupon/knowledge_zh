@@ -21,7 +21,8 @@
 * [C++11新引入的STL算法](Cpp11NewSTLAlgorithms.md)
 * [std::all_of示例](CppStdAllOfAlogrithm.md)
 * [std::thread的相关知识](CppStdThreadIntroduction.md)
-* [std::unique介绍](CppStdUniqueIntroduction.md)
+* [std::unique_ptr介绍](CppStdUniqueIntroduction.md)
+* [std::shared_ptr介绍](CppStdSharedPtrIntroduction.md)
 
 #### 4.2 New feature
 
