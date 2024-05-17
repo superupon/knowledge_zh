@@ -3,6 +3,15 @@
 > [!TIP]
 > 以下的内容会以字典排序
 
+## A Fly in the Ointment
+
+"A fly in the ointment" is an English idiom that refers to a small defect or problem that spoils an otherwise flawless plan, situation, or circumstance.
+
+The phrase originates from the Bible, in Ecclesiastes 10:1, where it is used to convey the idea that a small amount of folly can outweigh wisdom and honor, much like a tiny fly can spoil a large jar of perfume or ointment.
+
+In modern usage, if someone mentions "a fly in the ointment," they are typically pointing out a minor issue or drawback that prevents a situation from being perfect or satisfactory.
+
+For example, if you say, "The car is in perfect condition, but the high price is a fly in the ointment," you are saying that the car is great, but its cost is a problem.
 
 ## Boilerplate
 
