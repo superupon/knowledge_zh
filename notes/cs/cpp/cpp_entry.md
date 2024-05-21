@@ -29,6 +29,7 @@
 * [什么是std::forward_list](CppStdForwardList.md)
 * [std::list的一些细节](CppStdList.md)
 * [std::splice使用](HowToUseStdSplice.md)
+* [如何高效的利用C++的容器](HowToEfficientlyMakeUseOfSTLContainer.md)
 
 #### 4.2 New feature
 
