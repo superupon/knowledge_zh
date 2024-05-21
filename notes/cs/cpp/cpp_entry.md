@@ -36,6 +36,7 @@
 * [std::move的一些讨论](CppStdMoveIntroduction.md)
 * [为什么强枚举类型更安全](WhyStrongTypeEnumMoreSafe.md)
 * [为什么final关键字可以提升性能](WhyFinalImprovePerformance.md)
+* [auto关键字的使用](HowToMakeUseOfAuto.md)
 
 ### 5.经验
 
