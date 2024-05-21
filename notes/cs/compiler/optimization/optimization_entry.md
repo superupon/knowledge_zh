@@ -13,5 +13,6 @@
 
 * [Reaching-Definition Analysis](ReachingDefinitionAnalysis.md)
 * [Alias Analysis](AliasAnalysis.md)
+* [Definite Assignment Analysis](DefiniteAssignmentAnalaysis.md)
 
 ## 优化转换
