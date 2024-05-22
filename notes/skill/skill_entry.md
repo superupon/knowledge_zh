@@ -14,7 +14,7 @@
 * [gdb](gdb/gdb_entry.md)
 * [cmake](cmake/cmake_entry.md)
 * [bash](bash/bash_entry.md)
-* [VSCode](vscode/vscode_entry.md)
+* [软件工具](sw/sw_entry.md)
 
 ```mermaid
 mindmap
@@ -33,5 +33,5 @@ root((Skills))
   gdb
   cmake
   bash
-  vscode
+  软件工具
 ```
