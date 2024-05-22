@@ -8,3 +8,4 @@
 * [Daily Coding Problems](dcp/dcp_entry.md)
 * [Python](python/python_entry.md)
 * [Coding Skill](coding/coding_entry.md)
+* [汇编语言](assembly/assembly_entry.md)
