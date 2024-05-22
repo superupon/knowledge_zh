@@ -13,6 +13,22 @@ In modern usage, if someone mentions "a fly in the ointment," they are typically
 
 For example, if you say, "The car is in perfect condition, but the high price is a fly in the ointment," you are saying that the car is great, but its cost is a problem.
 
+## Baggage
+
+The term "baggage" can have different meanings depending on the context. Here are some of its common uses:
+
+Physical Luggage: In the most literal sense, baggage refers to the bags, suitcases, and other items that you carry with you when you travel. This could be anything from a small handbag or backpack to large suitcases, and it might include clothes, toiletries, books, electronic devices, and other personal belongings.
+
+Emotional Baggage: In a metaphorical sense, baggage can refer to the past traumas, issues, or burdens that a person carries with them emotionally. These might be unresolved issues from past relationships, deeply ingrained fears or insecurities, or memories of traumatic events. This kind of "baggage" can affect a person's behavior and emotional well-being.
+
+Data Baggage: In distributed tracing, baggage refers to the data that travels with the trace, like metadata that provides context for the trace.
+
+## Banal
+
+"Banal" is an adjective that originates from the French language. It is used to describe something that is so unoriginal, common, or ordinary as to be boring or uninspired. Essentially, it refers to something that lacks freshness, novelty, or excitement.
+
+For example, if a movie plot is described as "banal," it means it's perceived as clichéd or predictable, offering nothing new or interesting to the viewer.
+
 ## Boilerplate
 
 "Boilerplate"在编程中通常有两种含义：
@@ -27,6 +43,6 @@ For example, if you say, "The car is in perfect condition, but the high price is
 
 此外，"relics from the past"也可以被用作比喻，指代过时的观念、习俗或做法，表达它们已经不适应现代社会，但仍然在某些地方或者人群中存在。
 
-## terse
+## Terse
 
 "Terse" 这个英文单词形容的是说话或者写作方式简洁到几乎显得有点粗鲁或者不友好。它既有“简洁”的正面含义，也可能带有“过于简短以至于显得冷淡或不耐烦”的负面色彩。具体是正面还是负面，往往取决于语境和说话人的意图。
