@@ -31,6 +31,7 @@
 * [std::splice使用](HowToUseStdSplice.md)
 * [如何高效的利用C++的容器](HowToEfficientlyMakeUseOfSTLContainer.md)
 * [emplace_back更高效吗](IsEmplaceBackMoreEffective.md)
+* [什么是std::char_traits](WhatIsStdCharTraits.md)
 
 #### 4.2 New feature
 
