@@ -14,7 +14,7 @@ Try `find . -type f | wc -l`, it will count of all the files in the current dire
 
 ```bash
 find . -maxdepth 1 -type d | while read -r dir;
-do printf "%s:\t" "$dir"; find "$dir" -type f | wc -l; done
+do printf "10%s: " "$dir"; find "$dir" -type f | wc -l; done
 ```
 
 The first part: `find . -maxdepth 1 -type d` will return a list of all directories in the current working directory.  (Warning: -maxdepth is a GNU extension and might not be present in non-GNU versions of find.)  This is piped to...
@@ -35,3 +35,12 @@ So we get a list of all the directories in the current directory. For each of th
 ./dir2: 11
 ./dir3: 2199
 ...
+
+### 查看笔记文件的数量
+
+```bash
+find . -maxdepth 1 -type d | while read -r dir;
+ do printf "%10s: " "$dir"; find "$dir" -type f -name "*.md" | wc -l; done
+```
+
+📖
