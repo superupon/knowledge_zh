@@ -9,3 +9,4 @@
 * [Python](python/python_entry.md)
 * [Coding Skill](coding/coding_entry.md)
 * [汇编语言](assembly/assembly_entry.md)
+* [Rust](rust/rust_entry.md)
