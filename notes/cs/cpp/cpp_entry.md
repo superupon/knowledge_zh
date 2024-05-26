@@ -11,6 +11,7 @@
 ### 2.基本原理
 
 * [C++虚函数实现原理](CppVirtualFunctionImplementation.md)
+* [dynamic_cast和虚函数的比较](CppCmpDynCastWithVirtualFunc.md)
 
 ### 3.进阶用法
 
