@@ -1,6 +1,6 @@
-# std::unique 介绍
+# std::unique_ptr 介绍
 
-## std::unique是线程安全的吗？
+## std::unique_ptr线程安全性？
 
 `std::unique_ptr`对并发访问并不是线程安全的。这意味着任何保证安全的源自多个线程的同时访问的内置同步机制都是不提供的。这和C++的标准库是一致的，它并不提供线程安全性。
 
@@ -15,3 +15,76 @@
 If you need to share a dynamically allocated object between multiple threads, consider using `std::shared_ptr` along with `std::mutex` or other synchronization primitives to ensure thread-safety. Alternatively, if the ownership of the `std::unique_ptr` needs to be transferred between threads, ensure that such transfers are done in a thread-safe manner (i.e., no two threads are accessing the `std::unique_ptr` simultaneously). 
 
 Remember that even when using `std::shared_ptr`, only the control block (reference counts) is thread-safe, not the underlying object. You still need to synchronize access to the underlying object if it's being accessed from multiple threads.
+
+## 将一个nullptr赋值给一个unique_ptr会发生什么？
+
+在C++中，将`nullptr`赋值给一个 `std::unique_ptr` 会导致 `unique_ptr` 放弃对其当前管理的对象的所有权（如果有的话），并将其内部的原始指针设置为`nullptr`。如果 `unique_ptr` 在赋值之前已经管理了一个对象，那么该对象的析构函数会被调用，并且该对象会被正确地删除。
+
+下面是一个示例：
+
+```cpp
+#include <iostream>
+#include <memory>
+
+class MyClass {
+public:
+    ~MyClass() {
+        std::cout << "MyClass destructor called" << std::endl;
+    }
+};
+
+int main() {
+    std::unique_ptr<MyClass> ptr(new MyClass);
+    
+    // At this point, ptr is managing a new MyClass object.
+    
+    ptr = nullptr; // Assign nullptr to ptr.
+    
+    // MyClass destructor is called, the object is deleted,
+    // and ptr no longer manages any object.
+    
+    return 0;
+}
+```
+
+在上面的示例中，当我们将`nullptr`赋值给 `ptr` 时，`MyClass` 的析构函数会被调用，对象被删除，并且 `ptr` 不再管理任何对象。
+
+这种行为是很有用的，因为它允许你在运行时显式地释放 `unique_ptr` 管理的资源，并且确保资源被正确地清理。
+
+## 如果这个unique_ptr没有指向任何对象呢？比如说make_unique的时候，**入参是一个nullptr**
+
+如果一个 `std::unique_ptr` 从未指向任何对象，或者已经被设置为 `nullptr`，再次将 `nullptr` 赋值给它不会有任何特别的效果。它会继续保持为 `nullptr` 状态，并且不会管理任何对象。
+
+如果你通过 `std::make_unique` 创建一个 `std::unique_ptr` 并传递一个 `nullptr`，要注意，`std::make_unique` 用于动态分配一个对象并用给定的参数构造它。你不能直接将 `nullptr` 传递给 `std::make_unique` 作为要构造的对象。不过，你可以创建一个空的 `std::unique_ptr`。
+
+这里有一个例子：
+
+```cpp
+#include <iostream>
+#include <memory>
+
+class MyClass {
+public:
+    MyClass() {
+        std::cout << "MyClass constructor called" << std::endl;
+    }
+    ~MyClass() {
+        std::cout << "MyClass destructor called" << std::endl;
+    }
+};
+
+int main() {
+    // Creating an empty unique_ptr
+    std::unique_ptr<MyClass> ptr = nullptr;
+    
+    // It doesn't manage any object, so assigning nullptr again doesn't change anything
+    ptr = nullptr;
+
+    // Here is how you can use make_unique (it allocates and constructs an object)
+    std::unique_ptr<MyClass> ptr2 = std::make_unique<MyClass>();
+
+    return 0;
+}
+```
+
+请注意，`std::unique_ptr` 在初始化时可以被设置为 `nullptr`，表示它不管理任何对象。当使用 `std::make_unique` 时，它将分配并构造一个新对象，并由 `std::unique_ptr` 管理。
