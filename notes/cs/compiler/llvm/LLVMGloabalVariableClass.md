@@ -1,4 +1,4 @@
-# LLVM GloabalVariable类
+# LLVM GlobalVariable类
 
 ## 对于LLVM，如何判断Global Variable 是一个初始化为函数指针的value
 

@@ -8,3 +8,4 @@
 ## LLVM IR 知识
 
 * [GlobalVariable类](LLVMGloabalVariableClass.md)
+* [llvm::CloneFunctionInto()](LLVMCloneFunction.md)
