@@ -33,6 +33,7 @@
 * [如何高效的利用C++的容器](HowToEfficientlyMakeUseOfSTLContainer.md)
 * [emplace_back更高效吗](IsEmplaceBackMoreEffective.md)
 * [什么是std::char_traits](WhatIsStdCharTraits.md)
+* [std::pair和std::tuple的比较](DiffForStdPairAndTuple.md)
 
 #### 4.2 New feature
 
