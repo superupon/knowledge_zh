@@ -4,4 +4,5 @@
 
 ## 有用的文章
 
-[Reaching Definition Analysis - Wiki](Reaching_definition-Wikipedia.pdf)
+* [Reaching Definition Analysis - Wiki](Reaching_definition-Wikipedia.pdf)
+* [Research Quantifying GitHub Copilot](ResearchQuantifyingGitHubCopilots.md)
