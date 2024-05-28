@@ -9,3 +9,4 @@
 
 * [GlobalVariable类](LLVMGloabalVariableClass.md)
 * [llvm::CloneFunctionInto()](LLVMCloneFunction.md)
+* [Always Inline Pass](LLVMAlwaysInline.md)
