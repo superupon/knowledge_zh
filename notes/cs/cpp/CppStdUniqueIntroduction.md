@@ -16,7 +16,7 @@ If you need to share a dynamically allocated object between multiple threads, co
 
 Remember that even when using `std::shared_ptr`, only the control block (reference counts) is thread-safe, not the underlying object. You still need to synchronize access to the underlying object if it's being accessed from multiple threads.
 
-## 将一个nullptr赋值给一个unique_ptr会发生什么？
+## nullptr赋值给unique_ptr会发生什么？
 
 在C++中，将`nullptr`赋值给一个 `std::unique_ptr` 会导致 `unique_ptr` 放弃对其当前管理的对象的所有权（如果有的话），并将其内部的原始指针设置为`nullptr`。如果 `unique_ptr` 在赋值之前已经管理了一个对象，那么该对象的析构函数会被调用，并且该对象会被正确地删除。
 
@@ -51,7 +51,7 @@ int main() {
 
 这种行为是很有用的，因为它允许你在运行时显式地释放 `unique_ptr` 管理的资源，并且确保资源被正确地清理。
 
-## 如果这个unique_ptr没有指向任何对象呢？比如说make_unique的时候，**入参是一个nullptr**
+## 如果unique_ptr没有指向任何对象呢？比如说make_unique的时候，**入参是一个nullptr**
 
 如果一个 `std::unique_ptr` 从未指向任何对象，或者已经被设置为 `nullptr`，再次将 `nullptr` 赋值给它不会有任何特别的效果。它会继续保持为 `nullptr` 状态，并且不会管理任何对象。
 
@@ -88,3 +88,35 @@ int main() {
 ```
 
 请注意，`std::unique_ptr` 在初始化时可以被设置为 `nullptr`，表示它不管理任何对象。当使用 `std::make_unique` 时，它将分配并构造一个新对象，并由 `std::unique_ptr` 管理。
+
+## 为什么不可以make_unique一个抽象类的指针？
+
+在 C++ 中，`std::make_unique` 用于动态创建一个对象并返回该对象的 `std::unique_ptr`。然而，抽象类是不能被实例化的。因为抽象类通常包含至少一个纯虚函数，它没有实现，所以不能创建抽象类的对象。这是抽象类的本质特性，用于作为基类为派生类提供一个公共接口。
+
+下面是一个例子来说明这个概念：
+
+```cpp
+#include <memory>
+
+class AbstractClass {
+public:
+    virtual void doSomething() = 0; // 纯虚函数，没有实现
+};
+
+class ConcreteClass : public AbstractClass {
+public:
+    void doSomething() override {
+        // 具体的实现
+    }
+};
+
+int main() {
+    // 下面的代码是错误的，因为不能创建抽象类的实例
+    // auto abstractPtr = std::make_unique<AbstractClass>();
+
+    // 这是正确的，创建的是 ConcreteClass 的实例，它是 AbstractClass 的派生类
+    auto concretePtr = std::make_unique<ConcreteClass>();
+}
+```
+
+在这个例子中，你不能使用 `std::make_unique` 来创建 `AbstractClass` 的实例，因为它是一个抽象类。但是你可以创建它的派生类 `ConcreteClass` 的实例，因为 `ConcreteClass` 提供了纯虚函数的实现。
