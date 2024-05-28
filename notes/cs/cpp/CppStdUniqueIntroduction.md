@@ -89,7 +89,7 @@ int main() {
 
 请注意，`std::unique_ptr` 在初始化时可以被设置为 `nullptr`，表示它不管理任何对象。当使用 `std::make_unique` 时，它将分配并构造一个新对象，并由 `std::unique_ptr` 管理。
 
-## 为什么不可以make_unique一个抽象类的指针？
+## 为什么不可以make_unique抽象类？
 
 在 C++ 中，`std::make_unique` 用于动态创建一个对象并返回该对象的 `std::unique_ptr`。然而，抽象类是不能被实例化的。因为抽象类通常包含至少一个纯虚函数，它没有实现，所以不能创建抽象类的对象。这是抽象类的本质特性，用于作为基类为派生类提供一个公共接口。
 
@@ -120,3 +120,71 @@ int main() {
 ```
 
 在这个例子中，你不能使用 `std::make_unique` 来创建 `AbstractClass` 的实例，因为它是一个抽象类。但是你可以创建它的派生类 `ConcreteClass` 的实例，因为 `ConcreteClass` 提供了纯虚函数的实现。
+
+## 如何使用unique_ptr管理raw pointer?
+
+当你从一个函数中获取到一个裸指针，并且这个指针是动态分配的内存的所有者时，你可以使用 `std::unique_ptr` 来管理这个指针，以确保资源的正确释放。
+
+为此，你可以在创建 `std::unique_ptr` 时直接将这个裸指针传给它。下面是一个例子：
+
+```cpp
+#include <iostream>
+#include <memory>
+
+class MyClass {
+public:
+    MyClass() {
+        std::cout << "MyClass constructor" << std::endl;
+    }
+    
+    ~MyClass() {
+        std::cout << "MyClass destructor" << std::endl;
+    }
+};
+
+MyClass* createMyClass() {
+    return new MyClass(); // 动态分配内存并返回指针
+}
+
+int main() {
+    std::unique_ptr<MyClass> myClassPtr(createMyClass());
+    // myClassPtr 现在管理这块内存，当它离开作用域时会自动删除对象
+}
+```
+
+在这个例子中，`createMyClass` 函数动态分配内存，并返回一个指向它的裸指针。在 main 函数中，我们创建一个 `std::unique_ptr` 并将这个裸指针传递给它。现在，`std::unique_ptr` 成为这块内存的唯一所有者，并且当 `std::unique_ptr` 离开作用域时，它会自动删除对象，从而释放内存。
+
+## 如何显示释放unique_ptr的所有权？
+
+为了释放`std::unique_ptr`对其所拥有资源的所有权，你可以使用`std::unique_ptr`的`release()`成员函数。`release()`方法会返回`std::unique_ptr`所拥有的裸指针，并同时让`std::unique_ptr`放弃对这个资源的所有权，这意味着`std::unique_ptr`不再负责删除该资源。
+
+注意，当你使用`release()`方法后，你需要自己负责正确地管理和释放这个资源，因为`std::unique_ptr`不再自动为你做这件事。
+
+下面是一个例子：
+
+```cpp
+#include <iostream>
+#include <memory>
+
+class MyClass {
+public:
+    MyClass() {
+        std::cout << "MyClass constructor" << std::endl;
+    }
+    
+    ~MyClass() {
+        std::cout << "MyClass destructor" << std::endl;
+    }
+};
+
+int main() {
+    std::unique_ptr<MyClass> myClassPtr = std::make_unique<MyClass>();
+    
+    MyClass* rawPtr = myClassPtr.release(); // 释放所有权
+    
+    // 你现在需要负责管理和释放这个资源
+    delete rawPtr;
+}
+```
+
+在这个例子中，我们首先使用`std::make_unique`创建一个`std::unique_ptr`，然后使用`release()`方法释放其对资源的所有权。最后，我们显式地使用`delete`删除该资源。请务必谨慎处理释放后的裸指针，以避免资源泄露或其他问题。
