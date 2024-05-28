@@ -34,6 +34,7 @@
 * [emplace_back更高效吗](IsEmplaceBackMoreEffective.md)
 * [什么是std::char_traits](WhatIsStdCharTraits.md)
 * [std::pair和std::tuple的比较](DiffForStdPairAndTuple.md)
+* [更好的利用std::pair](MakeBetterUseOfStdPair.md)
 
 #### 4.2 New feature
 
