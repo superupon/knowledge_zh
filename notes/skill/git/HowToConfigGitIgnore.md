@@ -25,4 +25,10 @@
 
 请注意，.gitignore文件仅在对应的Git仓库中生效，并且仅影响未被Git跟踪的文件。如果文件已经被Git跟踪，那么在添加规则到.gitignore之前，您需要使用`git rm --cached`命令将其从Git仓库中移除。
 
-总结：通过创建和编辑.gitignore文件，您可以定义要在Git版本控制中忽略的文件、目录和文件类型的规则。这样可以确保Git不会追踪和提交这些文件，从而保持项目仓库的干净和整洁。
+## git ignore的全局配置
+对于多个项目都需要对某些特定的目录进行过滤，可以采用global ignore的方法：
+* git config --global core.excludesfile ~/.gitignore_global
+* 添加比如.cache/的规则到~/.gitignore_global这个文件当中。
+
+这样的好处在于可以不用在git当中提交文件信息，但本地可以忽略掉这些本不需要处理的文件。
+
