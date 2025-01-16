@@ -1,0 +1,510 @@
+# LLVM Test Framework
+文章的内容参考上述链接中LLVM关于test的描述。
+
+## 1. LLVM测试构架构成
+LLVM测试框架包含三大测试分类：unit tests, regression tests以及whole programs. Unit tests和regression tests在LLVM repo下。分别位于llvm/unittests 和llvm/test目录。并且它们总是被认为是pass的。它们必须在每次run之前就要运行。
+
+Whole program测试被称为是“LLVM test suite” or "test-suite", 并且在GitHub的test-suite repo上。由于历史原因，它们也会在某些地方被称为是“nightly tests”, 它比"test-suite"更直接一些，尽管我们需要运行它们更为频繁一些。
+
+### 1.1 Unit tests
+Unit test是使用Google Test和Google Mock来编写的。位于llvm/unittest目录下。总的来说，unit test对于support library或者其它generic数据结构来说是保留的，我们更倾向于利用regression tests来测试在IR上的transformations和analysis。
+
+### 1.2 Regression tests
+所谓的regression测试，是指使用一小片代码来测试LLVM的特定feature。编写的语言取决于被测试的LLVM部分。这些测试都是由Lit测试工具来驱动的（它是LLVM的一部分） LLVM Lit （LLVM Integrated Tester）, 测试用例位于llvm/test目录下。
+
+典型的，当一个bug被发现的时候，包含足够code来复现问题的regression test需要被编写并且放置在llvm/test目录下。
+
+### 1.3 测试分析pass
+分析是一个可以在IR的某些部分上推导某些特性而不发生转换的pass. 它们通常也是使用相同的基础架构进行测试。（通过添加一个Printer Pass来得到分析结果，并将它以文本的形式打印在标准输出之上，并利用FileCheckfjtf 检查），请参考这里来作为测试分析pass的一个例子，   https://github.com/llvm/llvm-project/blob/main/llvm/test/Analysis/BranchProbabilityInfo/loop.ll
+
+### 1.4 test-suite
+Test suite包含了whole programs，这里是一些代码片段，可以被编译和链接成一个独立的程序中被执行。这些程序一般通常以C/C++的高级语言所编写。
+
+这些program通过使用一个用户自定义的编译器和一组flag进行compile, 然后被执行，以捕获程序的输出以及时间信息。程序的输出会一个参考的输出做比较来保证程序被正确的compile.
+
+除了编译和执行程序，整个程序测试作为一种benchmark LLVM性能的方式，以生成程序的性能和LLVM编译，优化，生成代码的性能作为度量。
+
+test-suite位于这个github repo. 
+[该类型的内容暂不支持下载]
+
+进一步的文档可以参考如下的链接：
+[该类型的内容暂不支持下载]
+
+### 1.5 Debugging Information tests
+这个test suite包含了测试，用于检查debugging information的质量。测试是以C语言或者LLVM汇编来编写的。
+
+这些测试会被compile并且会在一个debugger下运行。debugger的输出会被检查以验证调试信息。请参见该test suite的README.txt以获得更多的信息。这个test suite位于cross-project-tests/debuginfo-tests目录。
+
+## 2. 快速入门
+所有的测试位于两个不同的repo当中。unit和regression测试位于main "llvm" 目录下的llvm/unittests和llvm/test. 请使用make check-all来运行unit和regression tests
+而test-suite module包含了更为深入的测试，包含了whole C/C++程序。
+
+注意：通过make命令执行的测试用例需要在build目录下执行，只有build目录下才有Makefile, 如果原先全使用的是ninja管理build, 那在执行make命令时，把make换成ninja, 比如ninja check-all
+### 2.1 unit和regression测试
+#### 2.1.1 运行单元测试
+使用check-llvm-unit目标可以运行所有llvm下的单元测试。
+ 
+`make check-llvm-unit`的示例输出
+
+同理，可以通过check-clang-unit, check-mlir-unit来测试其它大的component的单元测试
+#### 2.1.2 运行regression测试
+使用 check-llvm 目标
+
+为了获得合理的测试性能，以release mode build LLVM以及subprojects.
+```Bash
+% cmake -DCMAKE_BUILD_TYPE="Release" -DLLVM_ENABLE_ASSERTIONS=On
+```
+
+ 
+make check-llvm的示例输出
+
+#### 2.1.3 运行clang和LLVM所有测试
+如果你check out了clang, 也build了话，你可以运行同时LLVM和Clang tests， 使用如下的命令：
+```Bash
+% make check-all
+```
+
+#### 2.1.4 以Valgrind运行测试
+如果想以Valgrind运行测试(默认是Memcheck), 需要使用LIT_ARGS来将变量传递给lit. 举个例子，你可以使用：
+```Bash
+% make check LIT_ARGS="-v --vg --vg-leak"
+```
+来使能使用valgrind测试, 并且会检查 memory leak.
+
+#### 2.1.5 运行单个测试或某子集
+如果只是想运行一个子集，或是某个测试，可以使用llvm-lit脚本。 
+
+关于llvm-lit工具的进一步描述，可以参考这个文档 LLVM Lit （LLVM Integrated Tester）
+
+举个例子，如果想运行Integer/BitPacked.ll这个测试的话，可以这样运行
+
+```Bash
+% llvm-lit ~/llvm/test/Integer/BitPacked.ll
+```
+或者要运行所有的ARM CodeGen测试的话，也可以这样：
+```Bash
+% llvm-lit ~/llvm/test/CodeGen/ARM
+```
+
+### 2.2 Debugging information测试
+如果想要跑debugging information tests, 只需要将cross-project-tests project添加到你的LLVM_ENABLE_PROJECTS定义中。（在cmake命令行中）
+
+## 3. Regression test 结构
+LLVM regression test是由lit驱动的，位于llvm/test目录下。
+该目录下包含大量的小测试，它会执行各种各样LLVM的feature, 并且保证没有regression发生。该目录会分解为多个子目录，每个会focus在某个特定的领域。
+
+### 3.1 编写新的regression用例
+regression的测试结构非常简单，但是需要更多的信息用于设置。这个信息是通过cmake来收集的。并且被写入到一个文件中，在build目录下的test/lit.site.cfg.py. llvm/test目录下的Makefile帮你做了这件事。
+
+为了可以让regression tests工作起来，每个test的目录必须要包含一个lit.local.cfg文件。lit会搜索这个文件，以确定如何运行测试。这个文件仅仅只是Python代码，因此非常灵活。但是我们为LLVM regression tests进行了标准化。如果你在添加一个测试目录，只需要从其它目录copy一个lit.local.cfg, 就可以参与运行了。标准的lit.local.cfg简单的指定了哪些文件用来查看测试。任何只包含目录的目录不需要lit.local.cfg. 请阅读Lit文档来获取更多的信息。（实际试下来，似乎并不需要这个配置文件，在llvm/test目录下创建一个文件夹，它自动会跑对应的case）
+
+每个测试文件必须包含"RUN:", 否则, lit会报错。
+ 
+
+"RUN:"行会在test program的注释中被指定，然后立即跟着要执行的命令。这些命令一起构成了lit执行test case的”脚本“。"RUN:"行的语法是类似于shell中的包含了IO重定向和变量替换的pipeline。然而，即使这些行可能看上去像是一个shell脚本，但是它们不是。RUN行是由lit解释的。结果，它和shell在很多方面不同。你可以指定任意多的RUN.
+
+lit会在每个RUN行中替换LLVM的tool name成为每个工具built executable的全路径。它保证了lit并不会调用到任何在user路径下的LLVM工具。
+
+每个RUN行都会独立的执行，除非它的最后一个字符是\.这个连接符会让下一行和上一行连接。连接行的结束是以一个RUN行没有以\为结尾，来作为连接结束。如果在pipeline中的任一进程fail了，整个行（以及该case）就失败了.
+
+在编写 RUN 行时，有一些引用规则需要注意。通常情况下，不需要使用引号。lit 不会去掉任何引号字符，所以它们会被传递给被调用的程序。为了避免这种情况，可以使用大括号告诉 lit 应该将大括号内的所有内容视为一个值。
+
+通常，你应该尽量保持 RUN 行的简洁，只使用它们来运行生成文本输出的工具，然后可以进行检查。推荐的检查输出是否通过测试的方法是使用 FileCheck 工具。LLVM FileCheck
+
+将相关测试放在一个文件中，而不是为每个测试创建一个单独的文件。检查是否已经有文件覆盖了你的功能，考虑将你的代码添加到这些文件中，而不是创建一个新文件。
+
+### 3.2 在regression测试中生成assertion
+某些regression test case是非常大，并且复杂的。在这种情况下，我们可以使用在llvm/utils目录下的脚本来生成assertions.
+
+举例来说，我们在一个基于llc的测试中想生成assertion。那在添加了一行或多行的RUN之后，可以使用如下的命令。
+
+Assembly language
+% llvm/utils/update_llc_test_checks.py --llc-binary build/bin/llc test.ll
+这会生成FileCheck assertion, 并且会生成一个NOTE: 行在文件的顶部，以表明这些assertions是自动生成的。
+
+如果你要在一个现有的测试用例上update assertions, 传递一个-u的选项，该选项首先检查NOTE:行是否存在并与脚本名称匹配。（防止用错了脚本进行更新assertion）
+
+Assembly language
+WARNING: Skipping test which wasn't autogenerated by utils/update_mca_test_checks.py: ../test/CodeGen/RISCV/yz/yz-test.ll
+
+有时，测试完全依赖于手写的断言，不应该自动生成断言。在这种情况下，在第一行添加文本 "NOTE: Do not autogenerate"，脚本将跳过该测试。最好解释为什么自动生成的断言不适用于该测试，以便将来的开发人员理解情况。
+
+以下是最常用的脚本及其在生成断言中的用途/应用：
+
+Assembly language
+update_analyze_test_checks.py
+opt -passes='print<cost-model>'
+
+update_cc_test_checks.py
+C/C++, or clang/clang++ (IR checks)
+
+update_llc_test_checks.py
+llc (assembly checks)
+
+update_mca_test_checks.py
+llvm-mca
+
+update_mir_test_checks.py
+llc (MIR checks)
+
+update_test_checks.py
+opt
+
+### 3.3 对于test的Precommit workflow
+
+如果测试没有崩溃、断言失败或进入无限循环，首先使用基线check-lines提交测试。也就是说，该测试将显示错误编译或缺少优化。在测试中添加“TODO”或“FIXME”注释，以表示预期会有变化。
+随后，对编译器代码进行更改的补丁将显示测试中的check-line差异，从而更容易看到补丁的效果。如果问题得到解决，删除前一步中添加的TODO/FIXME注释。
+基线测试（no-functional-change 或 NFC补丁）如果你有提交权限，可以在不进行预提交审查的情况下直接推送到主分支。
+
+“基线检查行”指的是在测试文件中添加的基本断言或检查语句，用来验证代码的基本功能或性能是否正确。这些检查行是基线（baseline）的部分，即它们定义了在没有任何优化或改动的情况下，程序应该表现出的正确行为。
+通过首先提交这些基线检查行，可以确保在后续的优化或代码改动时，有一个参考点来比较变化。这样，当编译器代码更改后，测试文件中的检查行发生变化时，开发者可以很容易地看到这些改动的影响，并验证是否达到了预期的效果。
+
+### 3.4 对于regression test的best practices
+*	尽可能使用自动生成的check lines（由上面提到的脚本生成）。
+*	在特定测试中包含注释，说明测试内容和预期结果。如果有相关的问题在错误跟踪系统中，添加这些错误报告的引用（例如，“详见 PR999”）。
+*	除非必要，避免使用未定义行为和poison/undef值。例如，不要使用像 br i1 undef 这样的模式，因为它们可能会在未来的优化中导致问题。
+*	通过删除不必要的指令、元数据、属性等，尽量简化测试。像llvm-reduce这样的工具可以帮助自动化这个过程。
+*	在PhaseOrdering测试之外，仅运行最少量的passes。例如，优先使用 opt -S -passes=instcombine 而不是 opt -S -O3。
+*	避免使用未命名的指令/块（例如 %0 或 1:），因为在将来的测试修改中它们可能需要重新编号。可以通过运行 opt -S -passes=instnamer 来删除这些未命名的指令/块。
+*	尽量为值（包括变量、块和函数）赋予有意义的名称，避免保留由优化流程生成的复杂名称（例如 %foo.0.0.0.0.0.0）。
+### 3.5 Extra files
+如果你的测试需要额外的文件，并且该文件很小的话，可以考虑在同一个文件中指定它们，并且使用split-file来提取他们。举个例子：
+```llvm
+; RUN: split-file %s %t
+; RUN: llvm-link -S %t/a.ll %t/b.ll | FileCheck %s
+
+; CHECK: ...
+;--- a.ll
+...
+;--- b.ll
+...
+```
+
+每个部分通过正则^(.|//)--- <part>来切分
+如果你想测试相对行号（例如 [[#@LINE+1]]），请指定 --leading-lines 选项，以添加前导空行来保持行号。
+如果额外的文件很大，通常把它们放在名为 Inputs 的子目录中。然后你可以通过 %S/Inputs/foo.bar 来引用这些额外的文件。
+例如，考虑 test/Linker/ident.ll。目录结构如下：
+Assembly language
+test/
+├── Linker/
+│   ├── ident.ll
+│   └── Inputs/
+│       └── ident.a.ll
+│       └── ident.b.ll
+
+为了简化，内容如下：
+```llvm
+;;;;; ident.ll:
+; RUN: llvm-link %S/Inputs/ident.a.ll %S/Inputs/ident.b.ll -S | FileCheck %s
+
+; COM: Verify that multiple input llvm.ident metadata are linked together.
+; CHECK-DAG: !llvm.ident = !{!0, !1, !2}
+; CHECK-DAG: "Compiler V1"
+; CHECK-DAG: "Compiler V2"
+; CHECK-DAG: "Compiler V3"
+
+;;;;; Inputs/ident.a.ll:
+!llvm.ident = !{!0, !1}
+!0 = metadata !{metadata !"Compiler V1"}
+!1 = metadata !{metadata !"Compiler V2"}
+
+;;;;; Inputs/ident.b.ll:
+!llvm.ident = !{!0}
+!0 = metadata !{metadata !"Compiler V3"}
+```
+### 3.6 Elaborated tests
+一般来说，IR和汇编测试文件应该尽量清理，去除不必要的细节。然而，对于那些需要复杂IR或汇编文件的测试来说（例如，从Clang输出的大量调试信息），清理这些文件是不太实际的。这种情况下，你可以在split-file部分中包含生成指令（gen）。然后，在测试文件上运行 llvm/utils/update_test_body.py 来生成所需内容。
+
+示例：
+```llvm
+; RUN: rm -rf %t && split-file %s %t && cd %t
+; RUN: opt -S a.ll ... | FileCheck %s
+
+; CHECK: hello
+
+;--- a.cc
+int va;
+;--- gen
+clang --target=x86_64-linux -S -emit-llvm -g a.cc -o -
+
+;--- a.ll
+# content generated by the script 'gen'
+```
+
+```bash
+PATH=/path/to/clang_build/bin:$PATH llvm/utils/update_test_body.py path/to/test.ll
+```
+这个脚本会使用 split-file 准备额外文件，调用 gen，然后用 gen 的标准输出重写 gen 之后的部分。
+
+为了方便起见，如果测试只需要一个汇编文件，你可以用 .ifdef 和 .endif 包裹 gen 和其所需文件，然后可以在 RUN 行中跳过 split-file。
+
+示例：
+```bash
+# RUN: llvm-mc -filetype=obj -triple=x86_64 %s -o a.o
+# RUN: ... | FileCheck %s
+
+# CHECK: hello
+
+.ifdef GEN
+#--- a.cc
+int va;
+#--- gen
+clang --target=x86_64-linux -S -g a.cc -o -
+.endif
+# content generated by the script 'gen'
+```
+
+注意：
+*	考虑指定一个明确的target triple以避免在另一台机器上重新生成时出现差异。
+*	gen 会在当前工作目录（PWD）设置为 /proc/self/cwd 时被调用。Clang 命令不需要 -fdebug-compilation-dir= 选项，因为其默认值为 PWD。
+*	检查前缀（Check prefixes）应该放在 .endif 之前，因为 .endif 之后的部分会被替换。
+
+如果测试主体包含多个文件，你可以打印 --- 分隔符，并在 RUN 行中使用 split-file。
+
+示例：
+```bash
+# RUN: rm -rf %t && split-file %s %t && cd %t
+...
+
+#--- a.cc
+int va;
+#--- b.cc
+int vb;
+#--- gen
+clang --target=x86_64-linux -S -O1 -g a.cc -o -
+echo '#--- b.s'
+clang --target=x86_64-linux -S -O1 -g b.cc -o -
+#--- a.s
+```
+
+### 3.7 Fragile tests
+“Fragile test”（脆弱的测试）是指那些很容易因环境变化或非功能性因素而失败的测试。以下是为什么这些测试被称为“脆弱测试”的原因：
+1.	环境依赖性：测试依赖于特定的环境设置，比如文件路径。如果环境变化（例如，文件被放置在不同的目录中），测试可能会失败。
+2.	非功能性因素：测试的失败可能并不是因为代码功能有问题，而是因为一些无关的输出（如文件路径）导致了预期的结果不匹配。
+
+编写Fragile测试很容易，如果被测试的工具输出了输入文件的完整路径，这样的测试可能会意外失败。例如，opt 默认会输出一个 ModuleID：
+
+```llvm
+$ cat example.ll
+
+define i32 @main() nounwind {
+    ret i32 0
+}
+
+$ opt -S /path/to/example.ll
+
+; ModuleID = '/path/to/example.ll'
+
+define i32 @main() nounwind {
+    ret i32 0
+}
+```
+ModuleID 可能会意外地匹配到 CHECK 行。例如：
+```llvm
+; RUN: opt -S %s | FileCheck
+
+define i32 @main() nounwind {
+    ; CHECK-NOT: load
+    ret i32 0
+}
+```
+
+如果这个测试文件放在一个名叫download的目录中，它就会失败。
+为了让你的测试更加健壮，总是使用 opt ... < %s 在 RUN 行中。当输入来自标准输入时，opt 不会输出 ModuleID。
+
+### 3.8 平台特定的tests
+在添加需要特定平台知识的测试时，无论是与生成的代码、特定输出还是后端功能相关，你必须确保隔离这些特性，以便在不同架构上运行的构建机器人（可能并不会编译所有后端）不会失败。
+
+第一个问题是检查特定目标的输出，例如结构体大小、路径和架构名称。例如：
+
+*	包含 Windows 路径的测试将在 Linux 上失败，反之亦然。
+*	检查文本中某处是否包含 x86_64 的测试将在其他地方失败。
+*	计算类型和结构体大小的调试信息测试。
+
+此外，如果测试依赖于任何后端中的行为，它必须放在自己的目录中。例如，ARM 的代码生成测试应放在 test/CodeGen/ARM 中。这些目录包含一个特殊的 lit 配置文件，确保只有在特定后端被编译和可用时才运行该目录中的所有测试。
+
+例如，在 test/CodeGen/ARM 中，lit.local.cfg 是：
+```Python
+config.suffixes = ['.ll', '.c', '.cpp', '.test']
+if not 'ARM' in config.root.targets:
+  config.unsupported = True
+```
+
+其他平台特定的测试是那些依赖于特定子架构的特定功能的测试，例如仅适用于支持 AVX2 的 Intel 芯片的测试。
+
+例如，test/CodeGen/X86/psubus.ll 测试三个子架构变体：
+```bash
+; RUN: llc -mcpu=core2 < %s | FileCheck %s -check-prefix=SSE2
+; RUN: llc -mcpu=corei7-avx < %s | FileCheck %s -check-prefix=AVX1
+; RUN: llc -mcpu=core-avx2 < %s | FileCheck %s -check-prefix=AVX2
+```
+
+检查是不同的：
+```llvm
+; SSE2: @test1
+; SSE2: psubusw LCPI0_0(%rip), %xmm0
+; AVX1: @test1
+; AVX1: vpsubusw LCPI0_0(%rip), %xmm0, %xmm0
+; AVX2: @test1
+; AVX2: vpsubusw LCPI0_0(%rip), %xmm0, %xmm0
+```
+
+因此，如果你在测试某个特定平台的行为或依赖于子架构的特殊功能，你必须添加特定的triple，使用特定的 FileCheck 进行测试，并将其放入能够过滤掉所有其他架构的特定目录中。
+
+### 3.9 约束测试执行
+某些测试只能在特定配置下运行，例如调试版本或特定平台上。使用 REQUIRES 和 UNSUPPORTED 来控制测试何时启用。
+
+某些测试预计会失败。例如，可能有已知的错误会被测试检测到。使用 XFAIL 标记测试为预期失败。一个 XFAIL 测试如果执行失败将被视为成功，如果执行成功将被视为失败。
+```bash
+; This test will be only enabled in the build with asserts.
+; REQUIRES: asserts
+; This test is disabled when running on Linux.
+; UNSUPPORTED: system-linux
+; This test is expected to fail when targeting PowerPC.
+; XFAIL: target=powerpc{{.*}}
+```
+REQUIRES、UNSUPPORTED 和 XFAIL 都接受逗号分隔的布尔表达式列表。每个表达式中的值可以是：
+
+通过配置文件（如 lit.cfg）添加到 config.available_features 的功能。功能的字符串比较是区分大小写的。此外，布尔表达式可以包含任何用 {{ }} 括起来的 Python 正则表达式，如果任何功能匹配正则表达式，该布尔表达式即为真。正则表达式可以出现在标识符内部，例如 he{{l+}}o 可以匹配 helo、hello、helllo 等。
+
+默认目标Triple，前缀为 target=（例如，target=x86_64-pc-windows-msvc）。通常使用正则表达式来匹配Triple的部分（例如，target={{.*}}-windows{{.*}} 可以匹配任何 Windows Target Triple）。
+
+* REQUIRES 只有当所有表达式都为真时才启用测试。
+* UNSUPPORTED 只要有一个表达式为真就禁用测试。
+* XFAIL 只要有一个表达式为真就期望测试失败。
+使用 XFAIL: * 如果测试预计在任何地方都会失败。同样，使用 UNSUPPORTED: target={{.*}} 来禁用所有地方的测试。
+
+```bash
+; This test is disabled when running on Windows,
+; and is disabled when targeting Linux, except for Android Linux.
+; UNSUPPORTED: system-windows, target={{.*linux.*}} && !target={{.*android.*}}
+; This test is expected to fail when targeting PowerPC or running on Darwin.
+; XFAIL: target=powerpc{{.*}}, system-darwin
+```
+### 3.10 编写约束的tips
+
+*	REQUIRES 和 UNSUPPORTED
+这些是逻辑上的逆运算。原则上，UNSUPPORTED 并不是绝对必要的（可以使用 REQUIRES 的逻辑否定来达到完全相同的效果），但它可以使这些语句更易读和理解。一般来说，人们使用 REQUIRES 来说明测试正常运行所依赖的条件，而使用 UNSUPPORTED 来排除测试预计永远不会成功的情况。
+*	UNSUPPORTED 和 XFAIL
+这两者都表示测试预计不会成功；但是，它们的效果不同。UNSUPPORTED 会导致测试被跳过，这节省了执行时间，但你将永远不会知道测试是否实际上会开始工作。相反，XFAIL 实际上会运行测试，但期望失败的输出，这会花费额外的执行时间，但会在测试开始正确运行时（出现 XPASS 测试结果）提醒你。你需要根据具体情况决定哪种方式更合适。
+*	使用 target=...
+检查target triple可能会比较棘手；很容易指定错误。例如，target=mips{{.*}} 不仅会匹配 mips，还会匹配 mipsel、mips64 和 mips64el。target={{.*}}-linux-gnu 会匹配 x86_64-unknown-linux-gnu，但不会匹配 armv8l-unknown-linux-gnueabihf。最好使用连字符来分隔Triple的组件（target=mips-{{.*}}），并且通常最好使用尾随通配符以适应意外的后缀。
+
+此外，通常更好的是编写使用完整Triple组件的正则表达式，而不是做一些聪明的操作来缩短它们。例如，要在表达式中同时匹配 freebsd 和 netbsd，你可以写 target={{.*(free|net)bsd.*}}，这将有效。但这样会导致 grep freebsd 找不到这个测试。更好的方式是使用：target={{.+-freebsd.*}} || target={{.+-netbsd.*}}。
+### 3.11 替换
+除了替换 LLVM 工具名称之外，以下替换在 RUN 行中执行：
+*	%% 替换为单个 %。这允许转义其他替换。
+*	%s 测试用例源文件的文件路径。适合在命令行中作为输入传递给 LLVM 工具。
+	*	示例：/home/user/llvm/test/MC/ELF/foo_test.s
+*	%S 测试用例源文件的目录路径。
+	*	示例：/home/user/llvm/test/MC/ELF
+*	%t 可以用于该测试用例的临时文件的文件路径。文件名不会与其他测试用例冲突。如果需要多个临时文件，你可以在其后添加内容。这对于某些重定向输出的目标文件非常有用。
+	*	示例：/home/user/llvm.build/test/MC/ELF/Output/foo_test.s.tmp
+*	%T %t 的目录。已弃用。不应使用，因为它很容易被误用并导致测试之间的竞争条件。
+	*	如果需要临时目录，请使用 rm -rf %t && mkdir %t。
+	*	示例：/home/user/llvm.build/test/MC/ELF/Output
+更加详细的关于替换的解释，大家可以参考原文链接中的内容。
+
+### 3.12 MLIR test相关链接
+[该类型的内容暂不支持下载]
+关于MLIR的测试，可以进一步参考上面的文档。具体不在这篇文档中展开了。
+## 4. Best Practices for cases
+LLVM官方推荐的Best Practices可以参考这里 LLVM Test Framework，大家如果有比较好的做法，可以列到这里，供大家今后实践的时候进行参考和学习。 ;)
+
+### 4.1 单个case调试时，如何获得详细信息
+大家在debug时，可以在运行llvm-lit时，在命令行中增加-v --debug, 获得更多的关于case的信息。包括llvm-lit具体执行的命令，哪一行报错了，都可以知道。
+
+*	举例：
+有如下的一个输出，可以看到第30行
+; YZ-LABEL: matmuls:
+有一个错误的信息。表示 matmuls: 这个文本没有被匹配到，导致case出错。
+```bash
+yuchen.zhang@ubuntu:~/llvm18/llvm/build$ ./bin/llvm-lit ../test/CodeGen/RISCV/yz/yz-rv-intrisic-64-instruction-riscv32.ll -v --debug
+llvm-lit: /home/yuchen.zhang/llvm18/llvm/utils/lit/lit/discovery.py:66: note: loading suite config '/home/yuchen.zhang/llvm18/llvm/build/test/lit.site.cfg.py'
+llvm-lit: /home/yuchen.zhang/llvm18/llvm/utils/lit/lit/LitConfig.py:153: note: load_config from '/home/yuchen.zhang/llvm18/llvm/test/lit.cfg.py'
+llvm-lit: /home/yuchen.zhang/llvm18/llvm/utils/lit/lit/llvm/subst.py:126: note: Did not find dsymutil in /home/yuchen.zhang/llvm18/llvm/build/bin
+llvm-lit: /home/yuchen.zhang/llvm18/llvm/utils/lit/lit/llvm/subst.py:126: note: Did not find llvm-dwarfutil in /home/yuchen.zhang/llvm18/llvm/build/bin
+llvm-lit: /home/yuchen.zhang/llvm18/llvm/utils/lit/lit/llvm/subst.py:126: note: Did not find llvm-exegesis in /home/yuchen.zhang/llvm18/llvm/build/bin
+llvm-lit: /home/yuchen.zhang/llvm18/llvm/utils/lit/lit/llvm/subst.py:126: note: Did not find llvm-isel-fuzzer in /home/yuchen.zhang/llvm18/llvm/build/bin
+llvm-lit: /home/yuchen.zhang/llvm18/llvm/utils/lit/lit/llvm/subst.py:126: note: Did not find llvm-opt-fuzzer in /home/yuchen.zhang/llvm18/llvm/build/bin
+llvm-lit: /home/yuchen.zhang/llvm18/llvm/utils/lit/lit/llvm/subst.py:126: note: Did not find llvm-lto in /home/yuchen.zhang/llvm18/llvm/build/bin
+llvm-lit: /home/yuchen.zhang/llvm18/llvm/utils/lit/lit/llvm/subst.py:126: note: Did not find llvm-lto2 in /home/yuchen.zhang/llvm18/llvm/build/bin
+llvm-lit: /home/yuchen.zhang/llvm18/llvm/utils/lit/lit/llvm/subst.py:126: note: Did not find llvm-c-test in /home/yuchen.zhang/llvm18/llvm/build/bin
+llvm-lit: /home/yuchen.zhang/llvm18/llvm/utils/lit/lit/llvm/subst.py:126: note: Did not find bugpoint in /home/yuchen.zhang/llvm18/llvm/build/bin
+llvm-lit: /home/yuchen.zhang/llvm18/llvm/utils/lit/lit/llvm/subst.py:126: note: Did not find opt in /home/yuchen.zhang/llvm18/llvm/build/bin
+llvm-lit: /home/yuchen.zhang/llvm18/llvm/utils/lit/lit/TestingConfig.py:142: note: ... loaded config '/home/yuchen.zhang/llvm18/llvm/test/lit.cfg.py'
+llvm-lit: /home/yuchen.zhang/llvm18/llvm/utils/lit/lit/TestingConfig.py:142: note: ... loaded config '/home/yuchen.zhang/llvm18/llvm/build/test/lit.site.cfg.py'
+llvm-lit: /home/yuchen.zhang/llvm18/llvm/utils/lit/lit/discovery.py:141: note: resolved input '../test/CodeGen/RISCV/yz/yz-rv-intrisic-64-instruction-riscv32.ll' to 'LLVM'::('CodeGen', 'RISCV', 'yz', 'yz-rv-intrisic-64-instruction-riscv32.ll')
+llvm-lit: /home/yuchen.zhang/llvm18/llvm/utils/lit/lit/discovery.py:119: note: loading local config '/home/yuchen.zhang/llvm18/llvm/test/CodeGen/RISCV/lit.local.cfg'
+llvm-lit: /home/yuchen.zhang/llvm18/llvm/utils/lit/lit/TestingConfig.py:142: note: ... loaded config '/home/yuchen.zhang/llvm18/llvm/test/CodeGen/RISCV/lit.local.cfg'
+-- Testing: 1 tests, 1 workers --
+FAIL: LLVM :: CodeGen/RISCV/yz/yz-rv-intrisic-64-instruction-riscv32.ll (1 of 1)
+******************** TEST 'LLVM :: CodeGen/RISCV/yz/yz-rv-intrisic-64-instruction-riscv32.ll' FAILED ********************
+Exit Code: 1
+
+Command Output (stderr):
+--
+RUN: at line 1: /home/yuchen.zhang/llvm18/llvm/build/bin/llc < /home/yuchen.zhang/llvm18/llvm/test/CodeGen/RISCV/yz/yz-rv-intrisic-64-instruction-riscv32.ll    | /home/yuchen.zhang/llvm18/llvm/build/bin/FileCheck -check-prefixes=YZ /home/yuchen.zhang/llvm18/llvm/test/CodeGen/RISCV/yz/yz-rv-intrisic-64-instruction-riscv32.ll
++ /home/yuchen.zhang/llvm18/llvm/build/bin/llc
++ /home/yuchen.zhang/llvm18/llvm/build/bin/FileCheck -check-prefixes=YZ /home/yuchen.zhang/llvm18/llvm/test/CodeGen/RISCV/yz/yz-rv-intrisic-64-instruction-riscv32.ll
+/home/yuchen.zhang/llvm18/llvm/test/CodeGen/RISCV/yz/yz-rv-intrisic-64-instruction-riscv32.ll:9:13: error: YZ-LABEL: expected string not found in input
+; YZ-LABEL: matmuls:
+            ^
+<stdin>:1:1: note: scanning from here
+ .text
+^
+<stdin>:7:9: note: possible intended match here
+ .globl matmul # -- Begin function matmul
+        ^
+
+Input file: <stdin>
+Check file: /home/yuchen.zhang/llvm18/llvm/test/CodeGen/RISCV/yz/yz-rv-intrisic-64-instruction-riscv32.ll
+
+-dump-input=help explains the following input dump.
+
+Input was:
+<<<<<<
+           1:  .text
+label:9'0     X~~~~~~ error: no match found
+           2:  .attribute 4, 16
+label:9'0     ~~~~~~~~~~~~~~~~~~
+           3:  .attribute 5, "rv32i2p1"
+label:9'0     ~~~~~~~~~~~~~~~~~~~~~~~~~~
+           4:  .file "<stdin>"
+label:9'0     ~~~~~~~~~~~~~~~~~
+           5:  .option push
+label:9'0     ~~~~~~~~~~~~~~
+           6:  .option arch, +a, +c, +m
+label:9'0     ~~~~~~~~~~~~~~~~~~~~~~~~~~
+           7:  .globl matmul # -- Begin function matmul
+label:9'0     ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+label:9'1             ?                                  possible intended match
+           8:  .p2align 1
+label:9'0     ~~~~~~~~~~~~
+           9:  .type matmul,@function
+label:9'0     ~~~~~~~~~~~~~~~~~~~~~~~~
+          10: matmul: # @matmul
+label:9'0     ~~~~~~~~~~~~~~~~~~
+          11: # %bb.0: # %entry
+label:9'0     ~~~~~~~~~~~~~~~~~~
+          12:  blez a4, .LBB0_6
+label:9'0     ~~~~~~~~~~~~~~~~~~
+           .
+           .
+           .
+>>>>>>
+
+--
+
+********************
+********************
+Failed Tests (1):
+  LLVM :: CodeGen/RISCV/yz/yz-rv-intrisic-64-instruction-riscv32.ll
+
+
+Testing Time: 0.12s
+
+Total Discovered Tests: 1
+  Failed: 1 (100.00%)
+```
+
